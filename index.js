@@ -5,6 +5,7 @@ const port = process.env.PORT || 3000;
 const server = http.createServer((req, res) => {
   console.log(req.url);
   res.setHeader("Access-Control-Allow-Origin", "*");
+  res.appendHeader("Access-Control-Allow-Headers", "Content-Type");
 
   if (req.method === "GET") {
     switch (req.url) {
@@ -28,7 +29,20 @@ const server = http.createServer((req, res) => {
         break;
     }
   } else if (req.method === "POST") {
-    res.end("From post request");
+    let body = "";
+
+    req.on("data", (chunk) => {
+      body += chunk;
+      console.log(chunk);
+    });
+
+    req.on("end", () => {
+      const data = JSON.parse(body);
+      data.test = "from backend";
+      console.log(data);
+      res.setHeader("Content-Type", "application/json");
+      res.end(JSON.stringify(data));
+    });
   } else if (req.method === "PUT") {
     res.appendHeader("Access-Control-Allow-Methods", "PUT");
     res.end("Put request");

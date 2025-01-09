@@ -8,8 +8,12 @@ async function getData() {
 async function postData() {
   const res = await fetch("http://localhost:3000", {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ test: "hei" }),
   });
-  const data = await res.text();
+  const data = await res.json();
   console.log(data);
 }
 async function putData() {
@@ -19,6 +23,7 @@ async function putData() {
   const data = await res.text();
   console.log(data);
 }
-putData();
 postData();
-getData();
+/* putData();
+
+getData(); */
