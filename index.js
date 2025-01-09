@@ -5,7 +5,7 @@ const port = process.env.PORT || 3000;
 const server = http.createServer((req, res) => {
     console.log(req.url);
     res.setHeader("Access-Control-Allow-Origin", "*");
-    res.appendHeader("Access-Control-Allow-Header", "Content-Type");
+    res.appendHeader("Access-Control-Allow-Headers", "Content-Type");
 
     if (req.method === "GET") {
         switch (req.url) {
@@ -40,8 +40,8 @@ const server = http.createServer((req, res) => {
             const data = JSON.parse(body);
             data.test = "from backend";
             console.log(data);
-            res.setHeaader("Content-Type", "application/json");
-            req.end(JSON.stringify(data));
+            res.setHeader("Content-Type", "application/json");
+            res.end(JSON.stringify(data));
         });
     } else if (req.method === "PUT") {
         res.appendHeader("Access-Control-Allow-Methods", "PUT");

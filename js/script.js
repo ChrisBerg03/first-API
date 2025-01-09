@@ -13,7 +13,7 @@ async function postData() {
         },
         body: JSON.stringify({ test: "hei" }),
     });
-    const data = await res.data();
+    const data = await res.json();
     console.log(data);
 }
 async function putData() {
@@ -24,5 +24,6 @@ async function putData() {
     console.log(data);
 }
 postData();
-putData();
-getData();
+/* putData();
+  
+  getData(); */
